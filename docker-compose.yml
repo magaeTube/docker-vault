@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  vault:
+    image: vault:latest
+    container_name: vault
+    ports:
+      - 8200:8200
+    environment:
+      - SKIP_CHOWN=true
+    volumes:
+      - ./config:/vault/config
+      - ./file:/vault/file
+      - ./logs:/vault/logs
+    cap_add:
+      - IPC_LOCK
+    command: vault server -config=/vault/config/local.json
